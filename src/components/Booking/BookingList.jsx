@@ -1,5 +1,3 @@
-// BookingList.js
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -28,6 +26,10 @@ const BookingList = () => {
             <p>Date: {booking.date}</p>
             <p>Time: {booking.time}</p>
             <p>Pet Name: {booking.pet_name}</p>
+            <p>Breed: {booking.breed}</p>
+            <p>Age: {booking.age}</p>
+            <p>Color: {booking.color}</p>
+            <p>Symptoms: {booking.symptoms}</p>
           </li>
         ))}
       </ul>

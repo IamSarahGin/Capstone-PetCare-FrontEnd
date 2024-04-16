@@ -35,7 +35,15 @@ const Header = () => {
       setUser({});
     }
   }, []); // No dependencies, runs once on mount
-
+  const fetchBookings = async () => {
+    try {
+      const response = await axios.get('/bookings');
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching bookings:', error);
+      return [];
+    }
+  };
   return (
     <BrowserRouter>
       <div>
@@ -47,7 +55,7 @@ const Header = () => {
           <Route path='/forget' element={<Forget />} />
           <Route path='/reset/:id' element={<Reset />} />
           <Route path='/profile/*' element={<Protected path="/profile"><Profile user={user} setUser={setUser} /></Protected>} />
-          <Route path='/bookings' element={<Protected><BookingForm /></Protected>} />
+          <Route path='/bookings' element={<Protected><BookingForm fetchBookings={fetchBookings} /></Protected>} />
           <Route path='/add-booking' element={<Protected><BookingList /></Protected>} />
         </Routes>
       </div>
