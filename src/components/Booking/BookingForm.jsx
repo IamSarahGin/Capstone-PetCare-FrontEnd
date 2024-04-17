@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const BookingForm = ({ fetchBookings }) => {
@@ -10,32 +10,62 @@ const BookingForm = ({ fetchBookings }) => {
     age: '',
     color: '',
     symptoms: '',
-    status: 'pending', 
+    pet_type: '',
+    pet_id: '',
+    status: 'pending',
   });
 
+  const [petTypes, setPetTypes] = useState([]);
+  const [errors, setErrors] = useState({});
+
+  useEffect(() => {
+    fetchPetTypes();
+  }, []);
+
+  const fetchPetTypes = async () => {
+    try {
+      const response = await axios.get('/pets');
+      setPetTypes(response.data);
+    } catch (error) {
+      console.error('Error fetching pet types:', error);
+    }
+  };
+
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    let petId = '';
+
+    if (name === 'pet_type') {
+      const selectedPetType = petTypes.find(petType => petType.pet_type === value);
+      if (selectedPetType) {
+        petId = selectedPetType.id;
+      } else {
+        console.error('Invalid pet type selected.');
+      }
+    }
+
+    setFormData({ ...formData, [name]: value, pet_id: petId });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const token = localStorage.getItem('token'); // Retrieve the authentication token from localStorage
+      const token = localStorage.getItem('token');
       if (!token) {
         console.error('No token found. User not logged in.');
         return;
       }
-  
-      await axios.post('/bookings', { ...formData, status: 'pending' }, {
+
+      const response = await axios.post('/bookings', formData, {
         headers: {
-            Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
-    });
-    
+      });
+
+      console.log('Booking added successfully:', response.data);
       alert('Booking added successfully!');
-      fetchBookings(); // Refresh booking list after adding a new booking
-  
-      // Clear form fields by resetting the formData state to empty values
+      fetchBookings();
+
       setFormData({
         date: '',
         time: '',
@@ -43,13 +73,18 @@ const BookingForm = ({ fetchBookings }) => {
         breed: '',
         age: '',
         color: '',
-        symptoms: ''
+        symptoms: '',
+        pet_type: '',
+        pet_id: '',
+        status: 'pending',
       });
     } catch (error) {
       console.error('Error submitting booking:', error);
+      if (error.response && error.response.data && error.response.data.errors) {
+        setErrors(error.response.data.errors);
+      }
     }
   };
-  
 
   return (
     <div>
@@ -83,6 +118,25 @@ const BookingForm = ({ fetchBookings }) => {
           <label>Symptoms:</label>
           <input type="text" name="symptoms" value={formData.symptoms} onChange={handleChange} required />
         </div>
+        <div>
+          <label>Pet Type:</label>
+          <select name="pet_type" value={formData.pet_type} onChange={handleChange} required>
+            <option value="">Select Pet Type</option>
+            {petTypes.map((petType) => (
+              <option key={petType.id} value={petType.pet_type}>{petType.pet_type}</option>
+            ))}
+          </select>
+        </div>
+        {errors && Object.keys(errors).length > 0 && (
+          <div>
+            <h3>Error</h3>
+            <ul>
+              {Object.values(errors).flat().map((error, index) => (
+                <li key={index}>{error}</li>
+              ))}
+            </ul>
+          </div>
+        )}
         <button type="submit">Submit</button>
       </form>
     </div>
