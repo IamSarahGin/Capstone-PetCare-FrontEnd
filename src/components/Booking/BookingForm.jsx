@@ -16,6 +16,7 @@ const BookingForm = ({ fetchBookings }) => {
   });
 
   const [petTypes, setPetTypes] = useState([]);
+  const [timeSlots, setTimeSlots] = useState([]);
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
@@ -30,6 +31,25 @@ const BookingForm = ({ fetchBookings }) => {
       console.error('Error fetching pet types:', error);
     }
   };
+
+  const fetchTimeSlots = async (selectedDate = '') => {
+    try {
+      const response = await axios.get(`/time-slots?date=${selectedDate}`);
+      const fetchedTimeSlots = response.data;
+      
+      // Check if any time slots are available
+      if (fetchedTimeSlots.length === 0) {
+        alert('No available time slots for selected date. Please choose a different date.');
+      }
+      
+      setTimeSlots(fetchedTimeSlots);
+    } catch (error) {
+      console.error('Error fetching time slots:', error);
+    }
+  };
+  
+  
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -47,6 +67,41 @@ const BookingForm = ({ fetchBookings }) => {
     setFormData({ ...formData, [name]: value, pet_id: petId });
   };
 
+  const handleDateChange = async (e) => {
+    const selectedDate = e.target.value;
+    const currentDate = new Date();
+    const selectedDateObj = new Date(selectedDate);
+    
+    // Check if the selected date is in the past
+    if (selectedDateObj < currentDate) {
+      alert('You cannot select a past date for booking. Please choose a future date.');
+      return;
+    }
+    
+    try {
+      // Fetch bookings asynchronously
+      const bookings = await fetchBookings();
+      
+      // Check if the user already booked on the selected date
+      const alreadyBooked = bookings.some((booking) => booking.date === selectedDate);
+      if (alreadyBooked) {
+        alert('You already have a booking on this date. Please choose another date.');
+        return;
+      }
+      
+      setFormData({ ...formData, date: selectedDate });
+      fetchTimeSlots(selectedDate); // Call fetchTimeSlots with selectedDate
+    } catch (error) {
+      console.error('Error handling date change:', error);
+      // Handle error appropriately
+    }
+  };
+  
+  
+  const handleTimeChange = (e) => {
+    const selectedTime = e.target.value;
+    setFormData({ ...formData, time: selectedTime });
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -55,17 +110,30 @@ const BookingForm = ({ fetchBookings }) => {
         console.error('No token found. User not logged in.');
         return;
       }
-
-      const response = await axios.post('/bookings', formData, {
+  
+      // Create the booking
+      const bookingResponse = await axios.post('/bookings', formData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-
-      console.log('Booking added successfully:', response.data);
+      console.log('Booking added successfully:', bookingResponse.data);
+  
+      // Update the availability status of the selected time slot to 'booked'
+      const selectedTimeSlot = timeSlots.find(slot => slot.startTime === formData.time);
+      if (selectedTimeSlot) {
+        const updatedTimeSlot = { ...selectedTimeSlot, availability: 'booked' };
+        await axios.put(`/time-slots/${selectedTimeSlot.id}`, updatedTimeSlot, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        console.log('Time slot updated successfully:', updatedTimeSlot);
+      }
+  
       alert('Booking added successfully!');
       fetchBookings();
-
+  
       setFormData({
         date: '',
         time: '',
@@ -85,19 +153,45 @@ const BookingForm = ({ fetchBookings }) => {
       }
     }
   };
+  
+  
+  // Render Time select dropdown
+let timeSelect;
+if (timeSlots.length > 0) {
+  timeSelect = (
+    <div>
+      <label>Time:</label>
+      <select name="time" value={formData.time} onChange={handleTimeChange} required>
+        <option value="">Select Time</option>
+        {timeSlots.map((slot) => (
+          <option key={slot.id} value={slot.startTime}>{slot.startTime} - {slot.endTime}</option>
+        ))}
+      </select>
+    </div>
+  );
+} else {
+  timeSelect = <p>No available time slots for selected date.</p>;
+}
+
 
   return (
     <div>
       <h2>Booking Form</h2>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>Date:</label>
-          <input type="date" name="date" value={formData.date} onChange={handleChange} required />
-        </div>
-        <div>
-          <label>Time:</label>
-          <input type="time" name="time" value={formData.time} onChange={handleChange} required />
-        </div>
+      <div>
+  <label>Date:</label>
+  <input type="date" name="date" value={formData.date} onChange={handleDateChange} required />
+</div>
+<div>
+  <label>Time:</label>
+  <select name="time" value={formData.time} onChange={handleTimeChange} required>
+    <option value="">Select Time</option>
+    {timeSlots.map((slot) => (
+      <option key={slot.id} value={slot.startTime}>{slot.startTime} - {slot.endTime}</option>
+    ))}
+  </select>
+</div>
+        
         <div>
           <label>Pet Name:</label>
           <input type="text" name="pet_name" value={formData.pet_name} onChange={handleChange} required />
