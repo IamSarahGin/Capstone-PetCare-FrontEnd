@@ -10,7 +10,11 @@ const BookingList = () => {
 
   const fetchBookings = async () => {
     try {
-      const response = await axios.get('/bookings');
+      const response = await axios.get('/bookings', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`, // Assuming you store the access token in localStorage
+        },
+      });
       setBookings(response.data);
     } catch (error) {
       console.error('Error fetching bookings:', error);
@@ -30,6 +34,7 @@ const BookingList = () => {
             <p>Age: {booking.age}</p>
             <p>Color: {booking.color}</p>
             <p>Symptoms: {booking.symptoms}</p>
+            <p>Status: {booking.status}</p>
           </li>
         ))}
       </ul>

@@ -29,13 +29,13 @@ const Nav = (props) => {
     );
     bookingsLink = (
       <li className="nav-item">
-        <Link className="nav-link text-white" to="/bookings">Bookings</Link>
+        <Link className="nav-link text-white" to="/bookings">Add Booking</Link>
       </li>
     );
     // Add link to the booking form
     bookingFormLink = (
       <li className="nav-item">
-        <Link className="nav-link text-white" to="/add-booking">Add Booking</Link>
+        <Link className="nav-link text-white" to="/add-booking">List of Booking</Link>
       </li>
     );
   } else {

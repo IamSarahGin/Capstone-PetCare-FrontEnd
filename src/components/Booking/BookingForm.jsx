@@ -9,7 +9,8 @@ const BookingForm = ({ fetchBookings }) => {
     breed: '',
     age: '',
     color: '',
-    symptoms: ''
+    symptoms: '',
+    status: 'pending', 
   });
 
   const handleChange = (e) => {
@@ -19,7 +20,18 @@ const BookingForm = ({ fetchBookings }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('/bookings', formData);
+      const token = localStorage.getItem('token'); // Retrieve the authentication token from localStorage
+      if (!token) {
+        console.error('No token found. User not logged in.');
+        return;
+      }
+  
+      await axios.post('/bookings', { ...formData, status: 'pending' }, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    
       alert('Booking added successfully!');
       fetchBookings(); // Refresh booking list after adding a new booking
   
