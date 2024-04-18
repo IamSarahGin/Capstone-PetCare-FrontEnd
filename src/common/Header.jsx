@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import Nav from './Nav';
+import Nav from './Navbar/Nav';
 import Protected from './Protected';
 import Home from '../components/Home';
+import About from '../components/about/About';
+import Services from '../components/services/Services';
+import Contact from '../components/contact/Contact';
 import Login from '../components/Login';
 import Profile from '../components/Profile';
 import Register from '../components/Register';
@@ -50,6 +53,9 @@ const Header = () => {
         <Nav user={user} setUser={setUser} />
         <Routes>
           <Route path='/' element={<Protected path="/"><Home /></Protected>} />
+          <Route path='/about' element={<Protected path="/"><About /></Protected>} />
+          <Route path='/services' element={<Protected path="/"><Services /></Protected>} />
+          <Route path='/contact' element={<Protected path="/"><Contact /></Protected>} />
           <Route path='/login' element={<Protected path="/"><Login user={user} setUser={setUser} /></Protected>} />
           <Route path='/register' element={<Protected path="/"><Register user={user} setUser={setUser} /></Protected>} />
           <Route path='/forget' element={<Forget />} />

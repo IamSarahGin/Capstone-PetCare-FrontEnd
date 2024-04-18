@@ -71,24 +71,37 @@ const BookingForm = ({ fetchBookings }) => {
     const selectedDate = e.target.value;
     const currentDate = new Date();
     const selectedDateObj = new Date(selectedDate);
-    
+  
     // Check if the selected date is in the past
     if (selectedDateObj < currentDate) {
       alert('You cannot select a past date for booking. Please choose a future date.');
       return;
     }
-    
+  
     try {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        console.error('No token found. User not logged in.');
+        return;
+      }
+  
       // Fetch bookings asynchronously
-      const bookings = await fetchBookings();
-      
+      const response = await axios.get(`/bookings?date=${selectedDate}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const bookings = response.data;
+  
       // Check if the user already booked on the selected date
-      const alreadyBooked = bookings.some((booking) => booking.date === selectedDate);
+      const alreadyBooked = bookings.some((booking) => {
+        return booking.date === selectedDate;
+      });
       if (alreadyBooked) {
         alert('You already have a booking on this date. Please choose another date.');
         return;
       }
-      
+  
       setFormData({ ...formData, date: selectedDate });
       fetchTimeSlots(selectedDate); // Call fetchTimeSlots with selectedDate
     } catch (error) {
@@ -96,6 +109,7 @@ const BookingForm = ({ fetchBookings }) => {
       // Handle error appropriately
     }
   };
+  
   
   
   const handleTimeChange = (e) => {
