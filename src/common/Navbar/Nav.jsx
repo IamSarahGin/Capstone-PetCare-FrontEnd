@@ -38,7 +38,7 @@ const Nav = (props) => {
     // Add link to the booking form
     bookingFormLink = (
       <li className="nav-item">
-        <Link className="nav-link text-white" to="/add-booking">LIST OF BOOKING</Link>
+        <Link className="nav-link text-white" to="/add-booking">LIST OF REQUEST</Link>
       </li>
     );
   } else {

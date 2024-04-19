@@ -43,8 +43,8 @@ const BookingList = () => {
   };
 
   return (
-    <div>
-      <h2>Booking List</h2>
+    <div className='mt-5'>
+      <h3>BOOKING LIST</h3>
       <table className="table">
         <thead>
           <tr>

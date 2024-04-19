@@ -7,33 +7,33 @@ import "aos/dist/aos.css";
 import {useEffect} from "react";
 const Services = () => {
     useEffect(()=>{
-        Aos.init({duration:100})
+        Aos.init({duration:1500})
     })
 
 
   return (
-    <section className="pricing" id="pricing">
+    <section className="services" id="pricing">
         <h2 data-aos="zoom-in-up">Services</h2>
-        <div className="pricing_container wrapper">
+        <div className="services_container wrapper">
             
-                    <div className="pricing_card"  data-aos="fade-up">
-                        <img src={Consultation} alt="image" />
+                    <div className="services_card"  data-aos="fade-up">
+                        <img src={Consultation} alt="consultation" />
                         <h3>CONSULTATION</h3>
                         
                         <a href="/register" className="btn">
                             BOOK NOW
                         </a>
                     </div>
-                    <div className="pricing_card"  data-aos="zoom-in-up">
-                    <img src={Deworming} alt="image" />
+                    <div className="services_card"  data-aos="zoom-in-up">
+                    <img src={Deworming} alt="deworming" />
                         <h3>DEWORMING</h3>
                         
                         <a href="/register" className="btn">
                             BOOK NOW
                         </a>
                     </div>
-                    <div className="pricing_card"  data-aos="fade-up">
-                    <img src={Vaccination} alt="image" />
+                    <div className="services_card"  data-aos="fade-up">
+                    <img src={Vaccination} alt="vaciination" />
                         <h3>VACCINATION</h3>
                         
                         <a href="/register" className="btn">

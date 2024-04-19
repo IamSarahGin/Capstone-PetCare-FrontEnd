@@ -1,0 +1,16 @@
+.btn-submit {
+    background-color: #01a0c6;
+    padding: 0.6rem 1.2rem;
+    color: var(--black) !important;
+    border-radius: 0.5rem;
+    border: 1px solid transparent;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.btn-submit:hover {
+    border-color: #01a0c6;
+    background: transparent;
+    color: var(--cultured) !important;
+}

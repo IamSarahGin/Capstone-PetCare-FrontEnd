@@ -134,16 +134,17 @@ const BookingForm = ({ fetchBookings }) => {
       console.log('Booking added successfully:', bookingResponse.data);
   
       // Update the availability status of the selected time slot to 'booked'
-      const selectedTimeSlot = timeSlots.find(slot => slot.startTime === formData.time);
-      if (selectedTimeSlot) {
-        const updatedTimeSlot = { ...selectedTimeSlot, availability: 'booked' };
-        await axios.put(`/time-slots/${selectedTimeSlot.id}`, updatedTimeSlot, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        console.log('Time slot updated successfully:', updatedTimeSlot);
-      }
+const selectedTimeSlot = timeSlots.find(slot => slot.startTime === formData.time);
+if (selectedTimeSlot) {
+  const updatedTimeSlot = { ...selectedTimeSlot, availability: 'booked', user_id: bookingResponse.data.user_id, user_email: bookingResponse.data.user_email };
+  await axios.put(`/time-slots/${selectedTimeSlot.id}`, updatedTimeSlot, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  console.log('Time slot updated successfully:', updatedTimeSlot);
+}
+
   
       alert('Booking added successfully!');
       fetchBookings();
@@ -163,11 +164,11 @@ const BookingForm = ({ fetchBookings }) => {
     } catch (error) {
       console.error('Error submitting booking:', error);
       if (error.response && error.response.data && error.response.data.errors) {
+        console.log('Validation errors:', error.response.data.errors);
         setErrors(error.response.data.errors);
       }
     }
   };
-  
   
   // Render Time select dropdown
 let timeSelect;

@@ -5,7 +5,7 @@ import "aos/dist/aos.css"
 import { useEffect } from "react";
 const Hero = () => {
     useEffect(()=>{
-        Aos.init({duration:1000})
+        Aos.init({duration:1500})
     })
 
 
