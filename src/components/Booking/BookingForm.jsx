@@ -75,15 +75,18 @@ const BookingForm = ({ fetchBookings }) => {
     const selectedDate = e.target.value;
     console.log('Selected date:', selectedDate);
     setFormData({ ...formData, date: selectedDate });
-
+  
     await fetchTimeSlots(selectedDate);
-
+  
     // Check if the selected date is already booked
-    const alreadyBooked = bookings.some(booking => booking.date === selectedDate);
+    const alreadyBooked = bookings.some((booking) => booking.date === selectedDate);
     if (alreadyBooked) {
       alert('You already have a booking on this date.');
+      // Reset the date selection to prevent booking on the same date
+      setFormData({ ...formData, date: '' });
     }
   };
+  
 
   
   const handleTimeChange = (e) => {

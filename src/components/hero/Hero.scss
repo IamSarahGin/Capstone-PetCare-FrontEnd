@@ -47,9 +47,9 @@
         line-height: 1.5;
     }
     .btn{
-        background-color: #01a0c6;
+        background-color: #db9b41;
         padding:0.6rem 1.2 rem;
-        color:var(--black)!important;
+        color:white;
         border-radius: 0.5 rem;
         border: 1px solid transparent;
         font-size: 1.1rem;
@@ -58,7 +58,7 @@
     
         &:hover{
             border-color:#01a0c6 ;
-            background:transparent;
+            background:#01a0c6;
             color: var(--cultured)!important;
         }
     }

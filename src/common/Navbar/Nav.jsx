@@ -1,7 +1,6 @@
 import React from 'react';
 import Logo from '../../assets/Logo.png'
 import { Link } from 'react-router-dom';
-import { Link as ScrollLink } from 'react-scroll';
 
 import './Nav.css'; 
 const Nav = (props) => {
@@ -61,11 +60,19 @@ const Nav = (props) => {
     // Center the Home link
     homeLink = (
       <div className="d-flex justify-content-center">
-    <ScrollLink className="nav-link active text-white" to="hero" spy={true} smooth={true} duration={500}>HOME</ScrollLink>
-    <ScrollLink className="nav-link active text-white" to="about" spy={true} smooth={true} duration={500}>ABOUT</ScrollLink>
-    <ScrollLink className="nav-link active text-white" to="services" spy={true} smooth={true} duration={500}>SERVICES</ScrollLink>
-    <ScrollLink className="nav-link active text-white" to="contact" spy={true} smooth={true} duration={500}>CONTACT US</ScrollLink>
-  </div>
+        <li className="nav-item">
+          <Link className="nav-link active text-white" to="/">HOME</Link>
+        </li>
+        <li className="nav-item">
+          <Link className="nav-link active text-white" to="/about">ABOUT</Link>
+        </li>
+        <li className="nav-item">
+          <Link className="nav-link active text-white" to="/services">SERVICES</Link>
+        </li>
+        <li className="nav-item">
+          <Link className="nav-link active text-white" to="/contact">CONTACT US</Link>
+        </li>
+      </div>
     );
     
   }
