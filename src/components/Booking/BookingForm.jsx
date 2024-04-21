@@ -18,9 +18,11 @@ const BookingForm = ({ fetchBookings }) => {
   const [petTypes, setPetTypes] = useState([]);
   const [timeSlots, setTimeSlots] = useState([]);
   const [errors, setErrors] = useState({});
+  const [bookings, setBookings] = useState([]);
 
   useEffect(() => {
     fetchPetTypes();
+    fetchUserBookings();
   }, []);
 
   const fetchPetTypes = async () => {
@@ -29,6 +31,15 @@ const BookingForm = ({ fetchBookings }) => {
       setPetTypes(response.data);
     } catch (error) {
       console.error('Error fetching pet types:', error);
+    }
+  };
+
+  const fetchUserBookings = async () => {
+    try {
+      const response = await axios.get('/bookings');
+      setBookings(response.data);
+    } catch (error) {
+      console.error('Error fetching user bookings:', error);
     }
   };
 
@@ -43,7 +54,7 @@ const BookingForm = ({ fetchBookings }) => {
       console.error('Error fetching time slots:', error);
     }
   };
-  
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     let petId = '';
@@ -66,8 +77,15 @@ const BookingForm = ({ fetchBookings }) => {
     setFormData({ ...formData, date: selectedDate });
 
     await fetchTimeSlots(selectedDate);
+
+    // Check if the selected date is already booked
+    const alreadyBooked = bookings.some(booking => booking.date === selectedDate);
+    if (alreadyBooked) {
+      alert('You already have a booking on this date.');
+    }
   };
 
+  
   const handleTimeChange = (e) => {
     const selectedTimeRange = e.target.value;
     // Extract the start time from the selected time range
