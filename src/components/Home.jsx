@@ -5,10 +5,10 @@ import Contact from './contact/Contact';
 const Home = () => {
   return (
     <>
-    <Hero/>
-    <About />
-    <Services/>
-    <Contact/>
+  <div id="hero"><Hero/></div>
+      <div id="about"><About /></div>
+      <div id="services"><Services/></div>
+      <div id="contact"><Contact/></div>
     </>
   )
 }
