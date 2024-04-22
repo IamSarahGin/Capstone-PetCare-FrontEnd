@@ -18,9 +18,10 @@ const BookingForm = ({ fetchBookings }) => {
     pet_id: '',
     status: 'pending',
   });
+
   useEffect(() => {
     AOS.init({ duration: 1000 });
-}, []);
+  }, []);
 
   const [petTypes, setPetTypes] = useState([]);
   const [timeSlots, setTimeSlots] = useState([]);
@@ -75,13 +76,20 @@ const BookingForm = ({ fetchBookings }) => {
       }
     }
 
-    setFormData({ ...formData, [name]: value, pet_id: petId });
+    setFormData(prevState => ({
+      ...prevState,
+      [name]: value,
+      pet_id: petId
+    }));
   };
 
   const handleDateChange = async (e) => {
     const selectedDate = e.target.value;
     console.log('Selected date:', selectedDate);
-    setFormData({ ...formData, date: selectedDate });
+    setFormData(prevState => ({
+      ...prevState,
+      date: selectedDate
+    }));
 
     await fetchTimeSlots(selectedDate);
 
@@ -90,7 +98,10 @@ const BookingForm = ({ fetchBookings }) => {
     if (alreadyBooked) {
       alert('You already have a booking on this date.');
       // Reset the date selection to prevent booking on the same date
-      setFormData({ ...formData, date: '' });
+      setFormData(prevState => ({
+        ...prevState,
+        date: ''
+      }));
     }
   };
 
@@ -98,7 +109,10 @@ const BookingForm = ({ fetchBookings }) => {
     const selectedTimeRange = e.target.value;
     // Extract the start time from the selected time range
     const startTime = selectedTimeRange.split('-')[0];
-    setFormData({ ...formData, time: startTime });
+    setFormData(prevState => ({
+      ...prevState,
+      time: startTime
+    }));
   };
 
   // Ensure that pet_id is converted to an integer before sending it to the backend
@@ -182,27 +196,27 @@ const BookingForm = ({ fetchBookings }) => {
                   {timeSelect}
                   <Form.Group controlId="pet_name">
                     <Form.Label>Pet Name:</Form.Label>
-                    <Form.Control type="text" value={formData.pet_name} onChange={handleChange} required />
+                    <Form.Control type="text" name="pet_name" value={formData.pet_name} onChange={handleChange} required />
                   </Form.Group>
                   <Form.Group controlId="breed">
                     <Form.Label>Breed:</Form.Label>
-                    <Form.Control type="text" value={formData.breed} onChange={handleChange} required />
+                    <Form.Control type="text" name="breed" value={formData.breed} onChange={handleChange} required />
                   </Form.Group>
                   <Form.Group controlId="age">
                     <Form.Label>Age:</Form.Label>
-                    <Form.Control type="number" value={formData.age} onChange={handleChange} required />
+                    <Form.Control type="number" name="age" value={formData.age} onChange={handleChange} required />
                   </Form.Group>
                   <Form.Group controlId="color">
                     <Form.Label>Color:</Form.Label>
-                    <Form.Control type="text" value={formData.color} onChange={handleChange} required />
+                    <Form.Control type="text" name="color" value={formData.color} onChange={handleChange} required />
                   </Form.Group>
                   <Form.Group controlId="symptoms">
                     <Form.Label>Symptoms:</Form.Label>
-                    <Form.Control type="text" value={formData.symptoms} onChange={handleChange} required />
+                    <Form.Control type="text" name="symptoms" value={formData.symptoms} onChange={handleChange} required />
                   </Form.Group>
                   <Form.Group controlId="pet_type">
                     <Form.Label>Pet Type:</Form.Label>
-                    <Form.Control as="select" value={formData.pet_type} onChange={handleChange} required>
+                    <Form.Control as="select" name="pet_type" value={formData.pet_type} onChange={handleChange} required>
                       <option value="">Select Pet Type</option>
                       {petTypes.map((petType) => (
                         <option key={petType.id} value={petType.pet_type}>{petType.pet_type}</option>
