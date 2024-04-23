@@ -1,20 +1,19 @@
-
 .booking-card {
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 20px; 
-  }
-  
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px; 
+}
 
-h3{
+h3 {
   font-size: 24px; 
   font-weight: bold; 
   margin-bottom: 20px;
-  color:#db9b41;
+  color: #db9b41; /* Keep existing color */
 }
+
 .booking-form .form-control.half-width {
-    width: 100%; 
-  }
+  width: 100%; 
+}
 
 .input-container {
   margin-bottom: 20px; 
@@ -22,6 +21,7 @@ h3{
 
 .input-container label {
   font-weight: bold;
+  
 }
 
 .input-container input[type="text"],
@@ -45,19 +45,23 @@ h3{
   /* Additional styling for date input if needed */
 }
 
+
+
+
+
 .btn-submit {
   background-color: #db9b41;
-  padding:0.6rem 1.2 rem;
+  padding: 0.6rem 1.2rem;
   color: white !important; 
-  border-radius: 0.5 rem;
+  border-radius: 0.5rem;
   border: 1px solid transparent;
   font-size: 1.1rem;
   transition: all 0.3s ease;
-  display:inline-block;
+  display: inline-block;
 }
 
 .btn-submit:hover {
-  border-color:#01a0c6 ;
-  background:#01a0c6;
+  border-color: #01a0c6;
+  background: #01a0c6;
   color: var(--cultured)!important;
 }

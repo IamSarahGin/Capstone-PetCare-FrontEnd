@@ -57,7 +57,7 @@ const BookingList = () => {
           <tr>
             <th>DATE</th>
             <th>TIME</th>
-            <th>PET Name</th>
+            <th>PET NAME</th>
             <th>BREED</th>
             <th>AGE</th>
             <th>COLOR</th>
@@ -70,14 +70,14 @@ const BookingList = () => {
           {/* Map through bookings and render each row */}
           {bookings.map((booking) => (
             <tr key={booking.id}>
-              <td>{booking.date}</td>
-              <td>{booking.time}</td>
-              <td>{booking.pet_name}</td>
-              <td>{booking.breed}</td>
-              <td>{booking.age}</td>
-              <td>{booking.color}</td>
-              <td>{booking.symptoms}</td>
-              <td>{booking.status}</td>
+              <td>{booking.date.toUpperCase()}</td>
+              <td>{booking.time.toUpperCase()}</td>
+              <td>{booking.pet_name.toUpperCase()}</td>
+              <td>{booking.breed.toUpperCase()}</td>
+              <td>{typeof booking.age === 'string' ? booking.age.toUpperCase() : booking.age}</td>
+              <td>{booking.color.toUpperCase()}</td>
+              <td>{booking.symptoms.toUpperCase()}</td>
+              <td>{booking.status.toUpperCase()}</td>
             </tr>
           ))}
         </tbody>

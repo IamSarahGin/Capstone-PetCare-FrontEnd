@@ -219,43 +219,43 @@ const BookingForm = ({ fetchBookings }) => {
               <h3 className="text-center" >MAKE A BOOKING</h3>
                 <Form onSubmit={handleSubmit}>
                   <Form.Group controlId="date">
-                    <Form.Label>Date:</Form.Label>
+                    <Form.Label style={{ color: '#226c97' }}>DATE:</Form.Label>
                     <Form.Control type="date" value={formData.date} onChange={handleDateChange} required />
                   </Form.Group>
                   {timeSelect}
                   <Form.Group controlId="pet_name">
-                    <Form.Label>Pet Name:</Form.Label>
+                    <Form.Label style={{ color: '#226c97' }}>PET NAME:</Form.Label>
                     <Form.Control type="text" name="pet_name" value={formData.pet_name} onChange={handleChange} required />
                   </Form.Group>
                   <Form.Group controlId="breed">
-                    <Form.Label>Breed:</Form.Label>
+                    <Form.Label style={{ color: '#226c97' }}>BREED:</Form.Label>
                     <Form.Control type="text" name="breed" value={formData.breed} onChange={handleChange} required />
                   </Form.Group>
                   <Form.Group controlId="age">
-                    <Form.Label>Age:</Form.Label>
+                    <Form.Label style={{ color: '#226c97' }}>AGE:</Form.Label>
                     <Form.Control type="number" name="age" value={formData.age} onChange={handleChange} required />
                   </Form.Group>
                   <Form.Group controlId="color">
-                    <Form.Label>Color:</Form.Label>
+                    <Form.Label style={{ color: '#226c97' }}>COLOR:</Form.Label>
                     <Form.Control type="text" name="color" value={formData.color} onChange={handleChange} required />
                   </Form.Group>
                   <Form.Group controlId="symptoms">
-                    <Form.Label>Symptoms:</Form.Label>
+                    <Form.Label style={{ color: '#226c97' }}>SYMPTOMS:</Form.Label>
                     <Form.Control type="text" name="symptoms" value={formData.symptoms} onChange={handleChange} required />
                   </Form.Group>
                   <Form.Group controlId="service_type">
-                  <Form.Label>Service Type:</Form.Label>
+                  <Form.Label style={{ color: '#226c97' }}>SERVICE TYPE:</Form.Label>
                   <Form.Control as="select" name="service_type" value={formData.service_type} onChange={handleServiceChange} required>
-                    <option value="">Select Service Type</option>
+                    <option value="">SELECT SERVICE TYPE</option>
                     {serviceTypes.map((serviceType) => (
                       <option key={serviceType.id} value={serviceType.service_type}>{serviceType.service_type}</option>
                     ))}
                   </Form.Control>
                 </Form.Group>
                   <Form.Group controlId="pet_type">
-                    <Form.Label>Pet Type:</Form.Label>
+                    <Form.Label style={{ color: '#226c97' }}>PET TYPE:</Form.Label>
                     <Form.Control as="select" name="pet_type" value={formData.pet_type} onChange={handleChange} required>
-                      <option value="">Select Pet Type</option>
+                      <option value="">SELECT PET TYPE</option>
                       {petTypes.map((petType) => (
                         <option key={petType.id} value={petType.pet_type}>{petType.pet_type}</option>
                       ))}

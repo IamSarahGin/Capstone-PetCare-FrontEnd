@@ -7,7 +7,7 @@ import Services from '../components/services/Services';
 import Contact from '../components/contact/Contact';
 import Login from '../components/Login';
 import Profile from '../components/Profile';
-import Register from '../components/Register';
+import Register from '../components/register/Register';
 import Forget from '../components/Forget';
 import Reset from '../components/Reset';
 import BookingForm from '../components/Booking/BookingForm';
