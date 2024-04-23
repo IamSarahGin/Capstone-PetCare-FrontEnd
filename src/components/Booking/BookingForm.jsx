@@ -22,11 +22,33 @@ const BookingForm = ({ fetchBookings }) => {
   useEffect(() => {
     AOS.init({ duration: 1000 });
   }, []);
-
+  const [serviceTypes, setServiceTypes] = useState([]);
   const [petTypes, setPetTypes] = useState([]);
   const [timeSlots, setTimeSlots] = useState([]);
   const [errors, setErrors] = useState({});
   const [bookings, setBookings] = useState([]);
+  const fetchServiceTypes = async () => {
+    try {
+      const response = await axios.get('/services');
+      setServiceTypes(response.data);
+    } catch (error) {
+      console.error('Error fetching service types:', error);
+    }
+  };
+  
+  // Call fetchServiceTypes in useEffect hook
+  useEffect(() => {
+    fetchServiceTypes();
+  }, []);
+
+  const handleServiceChange = (e) => {
+    const { value } = e.target;
+    setFormData(prevState => ({
+      ...prevState,
+      service_type: value
+    }));
+  };
+
 
   useEffect(() => {
     fetchPetTypes();
@@ -85,14 +107,21 @@ const BookingForm = ({ fetchBookings }) => {
 
   const handleDateChange = async (e) => {
     const selectedDate = e.target.value;
+    const today = new Date().toISOString().split('T')[0]; // Get today's date
+  
+    if (selectedDate < today) {
+      alert("You can't select a past date. Please select a future date.");
+      return; // Exit the function without updating the state
+    }
+  
     console.log('Selected date:', selectedDate);
     setFormData(prevState => ({
       ...prevState,
       date: selectedDate
     }));
-
+  
     await fetchTimeSlots(selectedDate);
-
+  
     // Check if the selected date is already booked
     const alreadyBooked = bookings.some((booking) => booking.date === selectedDate);
     if (alreadyBooked) {
@@ -187,7 +216,7 @@ const BookingForm = ({ fetchBookings }) => {
           <Col md={8}>
             <Card className="mt-5">
               <Card.Body>
-                <h2 className='text-center'>Make a Booking</h2>
+              <h3 className="text-center" >MAKE A BOOKING</h3>
                 <Form onSubmit={handleSubmit}>
                   <Form.Group controlId="date">
                     <Form.Label>Date:</Form.Label>
@@ -214,6 +243,15 @@ const BookingForm = ({ fetchBookings }) => {
                     <Form.Label>Symptoms:</Form.Label>
                     <Form.Control type="text" name="symptoms" value={formData.symptoms} onChange={handleChange} required />
                   </Form.Group>
+                  <Form.Group controlId="service_type">
+                  <Form.Label>Service Type:</Form.Label>
+                  <Form.Control as="select" name="service_type" value={formData.service_type} onChange={handleServiceChange} required>
+                    <option value="">Select Service Type</option>
+                    {serviceTypes.map((serviceType) => (
+                      <option key={serviceType.id} value={serviceType.service_type}>{serviceType.service_type}</option>
+                    ))}
+                  </Form.Control>
+                </Form.Group>
                   <Form.Group controlId="pet_type">
                     <Form.Label>Pet Type:</Form.Label>
                     <Form.Control as="select" name="pet_type" value={formData.pet_type} onChange={handleChange} required>

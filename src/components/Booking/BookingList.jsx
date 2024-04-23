@@ -3,19 +3,24 @@ import axios from 'axios';
 
 const BookingList = () => {
   const [bookings, setBookings] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(5); // Number of items per page
 
   useEffect(() => {
     fetchBookings();
-  }, []);
+  }, [currentPage]); // Fetch bookings whenever currentPage changes
 
   const fetchBookings = async () => {
     try {
       const response = await axios.get('/bookings', {
+        params: {
+          page: currentPage,
+          limit: itemsPerPage,
+        },
         headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`, // Assuming you store the access token in localStorage
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
       });
-      // Format the date and time before setting the bookings
       const formattedBookings = response.data.map(booking => ({
         ...booking,
         date: formatDate(booking.date),
@@ -44,21 +49,25 @@ const BookingList = () => {
 
   return (
     <div className='mt-5'>
-      <h3>BOOKING LIST</h3>
-      <table className="table">
+      <h3 style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '20px' }}>BOOKING LIST</h3>
+      <table className="table table-striped">
+        {/* Table header */}
         <thead>
+          {/* Header row */}
           <tr>
-            <th>Date</th>
-            <th>Time</th>
-            <th>Pet Name</th>
-            <th>Breed</th>
-            <th>Age</th>
-            <th>Color</th>
-            <th>Symptoms</th>
-            <th>Status</th>
+            <th>DATE</th>
+            <th>TIME</th>
+            <th>PET Name</th>
+            <th>BREED</th>
+            <th>AGE</th>
+            <th>COLOR</th>
+            <th>SYMPTOMS</th>
+            <th>STATUS</th>
           </tr>
         </thead>
+        {/* Table body */}
         <tbody>
+          {/* Map through bookings and render each row */}
           {bookings.map((booking) => (
             <tr key={booking.id}>
               <td>{booking.date}</td>
@@ -73,6 +82,20 @@ const BookingList = () => {
           ))}
         </tbody>
       </table>
+      {/* Pagination controls */}
+      <nav aria-label="Page navigation">
+        <ul className="pagination">
+          <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
+            <button className="page-link" onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1}>Previous</button>
+          </li>
+          <li className="page-item disabled">
+            <span className="page-link">{currentPage}</span>
+          </li>
+          <li className="page-item">
+            <button className="page-link" onClick={() => setCurrentPage(currentPage + 1)}>Next</button>
+          </li>
+        </ul>
+      </nav>
     </div>
   );
 };

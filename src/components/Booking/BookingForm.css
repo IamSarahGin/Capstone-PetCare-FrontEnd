@@ -6,7 +6,12 @@
   }
   
 
-
+h3{
+  font-size: 24px; 
+  font-weight: bold; 
+  margin-bottom: 20px;
+  color:#db9b41;
+}
 .booking-form .form-control.half-width {
     width: 100%; 
   }

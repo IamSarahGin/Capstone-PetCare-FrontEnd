@@ -22,7 +22,8 @@ const Nav = (props) => {
    
     welcomeMessage = (
       <div className="d-flex align-items-center me-5">
-        <span className="text-white">WELCOME {username} !</span>
+        <span className="text-white">WELCOME <span style={{ color: '#db9b41' }}>{username}</span>
+!</span>
       </div>
     );
     buttons = (
