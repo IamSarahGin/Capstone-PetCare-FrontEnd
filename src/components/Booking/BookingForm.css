@@ -13,6 +13,7 @@ h3 {
 
 .booking-form .form-control.half-width {
   width: 100%; 
+  margin-bottom: 100px;
 }
 
 .input-container {
@@ -42,7 +43,6 @@ h3 {
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
-  /* Additional styling for date input if needed */
 }
 
 

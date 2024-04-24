@@ -89,7 +89,6 @@ const Nav = (props) => {
           <div className="collapse navbar-collapse" id="navbarText">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               {homeLink}
-              {profile}
               {bookingsLink}
               {bookingFormLink}
             </ul>

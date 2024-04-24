@@ -5,13 +5,14 @@ import Home from '../components/Home';
 import About from '../components/about/About';
 import Services from '../components/services/Services';
 import Contact from '../components/contact/Contact';
-import Login from '../components/Login';
+import Login from '../components/login/Login';
 import Profile from '../components/Profile';
 import Register from '../components/register/Register';
 import Forget from '../components/Forget';
 import Reset from '../components/Reset';
 import BookingForm from '../components/Booking/BookingForm';
 import BookingList from '../components/Booking/BookingList';
+import Footer from '../components/footer/Footer';
 import axios from 'axios';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
@@ -64,6 +65,7 @@ const Header = () => {
           <Route path='/bookings' element={<Protected><BookingForm fetchBookings={fetchBookings} /></Protected>} />
           <Route path='/add-booking' element={<Protected><BookingList /></Protected>} />
         </Routes>
+        <Footer/>
       </div>
     </BrowserRouter>
   );

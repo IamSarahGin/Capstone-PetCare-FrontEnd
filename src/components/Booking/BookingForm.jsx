@@ -16,6 +16,7 @@ const BookingForm = ({ fetchBookings }) => {
     symptoms: '',
     pet_type: '',
     pet_id: '',
+    service_id:'',
     status: 'pending',
   });
 
@@ -179,6 +180,7 @@ const BookingForm = ({ fetchBookings }) => {
         symptoms: '',
         pet_type: '',
         pet_id: '',
+        service_id: '',
         status: 'pending',
       });
     } catch (error) {
@@ -210,7 +212,7 @@ const BookingForm = ({ fetchBookings }) => {
     timeSelect = <p>No available time slots for selected date.</p>;
   }
   return (
-    <section className="section">
+    <section className="section mb-5">
       <Container data-aos="fade-up">
         <Row className="justify-content-center">
           <Col md={8}>

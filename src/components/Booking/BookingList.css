@@ -23,3 +23,6 @@ table th {
   background-clip: padding-box;
   box-shadow: 10px 10px 10px rgba(46, 54, 68, 0.03);
 }
+.main-content {
+  margin-bottom: 1000px; /* Adjust as needed */
+}

@@ -47,10 +47,23 @@ const BookingList = () => {
     return `${formattedHour}:${minute.toString().padStart(2, '0')} ${amOrPm}`;
   };
 
+  const getStatusColor = (status) => {
+    switch (status) {
+      case 'pending':
+        return 'blue';
+      case 'approved':
+        return 'green';
+      case 'rejected':
+        return 'red';
+      default:
+        return 'black';
+    }
+  };
+
   return (
-    <div className='mt-5'>
+    <div className='main-content mt-5 '>
       <h3 style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '20px' }}>BOOKING LIST</h3>
-      <table className="table table-striped">
+      <table className="table table-striped mb ">
         {/* Table header */}
         <thead>
           {/* Header row */}
@@ -77,7 +90,7 @@ const BookingList = () => {
               <td>{typeof booking.age === 'string' ? booking.age.toUpperCase() : booking.age}</td>
               <td>{booking.color.toUpperCase()}</td>
               <td>{booking.symptoms.toUpperCase()}</td>
-              <td>{booking.status.toUpperCase()}</td>
+              <td style={{ color: getStatusColor(booking.status) }}>{booking.status.toUpperCase()}</td>
             </tr>
           ))}
         </tbody>
