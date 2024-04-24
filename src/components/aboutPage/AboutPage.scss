@@ -1,5 +1,5 @@
 @import "../../styles/mixins.scss";
-.earnings{
+.about{
     
     padding-block: 5rem;
     &_container{
@@ -28,5 +28,7 @@
     p{
         margin-block: 1rem;
     }
-    
+    .colored {
+        color: #226c97;
+    }
 }

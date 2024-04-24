@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Nav from './Navbar/Nav';
 import Protected from './Protected';
 import Home from '../components/Home';
-import About from '../components/about/About';
+import About from '../components/aboutPage/AboutPage';
 import Services from '../components/servicePage/ServicePage';
 import Contact from '../components/contact/Contact';
 import Login from '../components/login/Login';
