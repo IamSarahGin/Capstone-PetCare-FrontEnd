@@ -1,7 +1,7 @@
 @import "../../styles/mixins.scss";
 .hero {
     background-color: var(--black);
-    padding-block: 5rem;
+    padding-block: 2.5rem;
 
     &_container {
         display: grid;
@@ -20,9 +20,9 @@
     }
 
     &_left img {
-        padding-left: 80px;
+        padding-left: 20px;
+        height: 100%; 
         width: auto; 
-        height: 100vh; 
         object-fit: cover; 
         @include respond(tab-port) {
             width: 80%;
@@ -48,18 +48,22 @@
     }
     .btn{
         background-color: #db9b41;
-        padding:0.6rem 1.2 rem;
-        color:white;
-        border-radius: 0.5 rem;
+        padding: 0.6rem 1.2rem;
+        color: white;
+        border-radius: 0.5rem;
         border: 1px solid transparent;
         font-size: 1.1rem;
         transition: all 0.3s ease;
-        display:inline-block;
+        display: inline-block;
+        margin-top: 1.5rem; /* Add margin to separate from the paragraph */
     
         &:hover{
-            border-color:#01a0c6 ;
-            background:#01a0c6;
+            border-color: #01a0c6;
+            background: #01a0c6;
             color: var(--cultured)!important;
         }
+    }
+    .colored {
+        color: #226c97;
     }
 }

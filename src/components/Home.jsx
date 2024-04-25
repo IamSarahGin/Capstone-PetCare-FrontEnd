@@ -1,18 +1,17 @@
-import Hero from "./hero/Hero";
+
+import HeroPage from "./heroPage/HeroPage";
 import AboutPage from "./aboutPage/AboutPage";
 import Contact from "./contact/Contact";
 import ServicePage from "./servicePage/ServicePage";
+import ContactPage from "./contactPage/ContactPage"
 const Home = () => {
   return (
     <>
-      <div id="hero">
-        <Hero />
-      </div>
+      <HeroPage/>
       <AboutPage />
       <ServicePage />
-      <div id="contact">
-        <Contact />
-      </div>
+    
+      <ContactPage/>
     </>
   );
 };

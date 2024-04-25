@@ -4,7 +4,7 @@ import Protected from './Protected';
 import Home from '../components/Home';
 import About from '../components/aboutPage/AboutPage';
 import Services from '../components/servicePage/ServicePage';
-import Contact from '../components/contact/Contact';
+import Contact from '../components/contactPage/ContactPage';
 import Login from '../components/login/Login';
 import Profile from '../components/Profile';
 import Register from '../components/register/Register';
