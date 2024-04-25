@@ -67,12 +67,24 @@ const BookingForm = ({ fetchBookings }) => {
 
   const fetchUserBookings = async () => {
     try {
-      const response = await axios.get('/bookings');
+      const token = localStorage.getItem('token');
+      if (!token) {
+        console.error('No token found. User not logged in.');
+        return;
+      }
+  
+      const response = await axios.get('/bookings', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+  
       setBookings(response.data);
     } catch (error) {
       console.error('Error fetching user bookings:', error);
     }
   };
+  
 
   const fetchTimeSlots = async (selectedDate) => {
     try {
