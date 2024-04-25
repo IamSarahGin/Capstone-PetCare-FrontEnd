@@ -16,18 +16,25 @@ const BookingForm = ({ fetchBookings }) => {
     symptoms: '',
     pet_type: '',
     pet_id: '',
-    service_id:'',
+    service_id: '',
     status: 'pending',
   });
 
   useEffect(() => {
     AOS.init({ duration: 1000 });
   }, []);
+
   const [serviceTypes, setServiceTypes] = useState([]);
   const [petTypes, setPetTypes] = useState([]);
   const [timeSlots, setTimeSlots] = useState([]);
   const [errors, setErrors] = useState({});
   const [bookings, setBookings] = useState([]);
+
+  useEffect(() => {
+    fetchServiceTypes();
+    fetchUserBookings();
+  }, []);
+
   const fetchServiceTypes = async () => {
     try {
       const response = await axios.get('/services');
@@ -36,24 +43,9 @@ const BookingForm = ({ fetchBookings }) => {
       console.error('Error fetching service types:', error);
     }
   };
-  
-  // Call fetchServiceTypes in useEffect hook
-  useEffect(() => {
-    fetchServiceTypes();
-  }, []);
-
-  const handleServiceChange = (e) => {
-    const { value } = e.target;
-    setFormData(prevState => ({
-      ...prevState,
-      service_type: value
-    }));
-  };
-
-
   useEffect(() => {
     fetchPetTypes();
-    fetchUserBookings();
+    
   }, []);
 
   const fetchPetTypes = async () => {
@@ -64,6 +56,13 @@ const BookingForm = ({ fetchBookings }) => {
       console.error('Error fetching pet types:', error);
     }
   };
+  const handleServiceChange = (e) => {
+    const { value } = e.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      service_type: value,
+    }));
+  };
 
   const fetchUserBookings = async () => {
     try {
@@ -72,19 +71,18 @@ const BookingForm = ({ fetchBookings }) => {
         console.error('No token found. User not logged in.');
         return;
       }
-  
+
       const response = await axios.get('/bookings', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-  
+
       setBookings(response.data);
     } catch (error) {
       console.error('Error fetching user bookings:', error);
     }
   };
-  
 
   const fetchTimeSlots = async (selectedDate) => {
     try {
@@ -95,6 +93,7 @@ const BookingForm = ({ fetchBookings }) => {
       setTimeSlots(fetchedTimeSlots);
     } catch (error) {
       console.error('Error fetching time slots:', error);
+      setTimeSlots([]); // Reset timeSlots state in case of error
     }
   };
 
@@ -103,7 +102,7 @@ const BookingForm = ({ fetchBookings }) => {
     let petId = '';
 
     if (name === 'pet_type') {
-      const selectedPetType = petTypes.find(petType => petType.pet_type === value);
+      const selectedPetType = petTypes.find((petType) => petType.pet_type === value);
       if (selectedPetType) {
         petId = selectedPetType.id;
       } else {
@@ -111,10 +110,10 @@ const BookingForm = ({ fetchBookings }) => {
       }
     }
 
-    setFormData(prevState => ({
+    setFormData((prevState) => ({
       ...prevState,
       [name]: value,
-      pet_id: petId
+      pet_id: petId,
     }));
   };
 
@@ -124,40 +123,37 @@ const BookingForm = ({ fetchBookings }) => {
   
     if (selectedDate < today) {
       alert("You can't select a past date. Please select a future date.");
-      return; // Exit the function without updating the state
+      return;
     }
   
     console.log('Selected date:', selectedDate);
-    setFormData(prevState => ({
+    setFormData((prevState) => ({
       ...prevState,
-      date: selectedDate
+      date: selectedDate,
     }));
-  
-    await fetchTimeSlots(selectedDate);
   
     // Check if the selected date is already booked
     const alreadyBooked = bookings.some((booking) => booking.date === selectedDate);
     if (alreadyBooked) {
       alert('You already have a booking on this date.');
-      // Reset the date selection to prevent booking on the same date
-      setFormData(prevState => ({
-        ...prevState,
-        date: ''
-      }));
+      return; // Exit the function without fetching time slots
     }
+  
+    // Fetch time slots for the selected date
+    await fetchTimeSlots(selectedDate);
   };
+  
 
   const handleTimeChange = (e) => {
     const selectedTimeRange = e.target.value;
     // Extract the start time from the selected time range
     const startTime = selectedTimeRange.split('-')[0];
-    setFormData(prevState => ({
+    setFormData((prevState) => ({
       ...prevState,
-      time: startTime
+      time: startTime,
     }));
   };
 
-  // Ensure that pet_id is converted to an integer before sending it to the backend
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -207,6 +203,7 @@ const BookingForm = ({ fetchBookings }) => {
 
   let timeSelect;
   if (timeSlots.length > 0) {
+    // Render time slot selection dropdown
     timeSelect = (
       <Form.Group controlId="time">
         <Form.Label>Time:</Form.Label>
@@ -221,8 +218,10 @@ const BookingForm = ({ fetchBookings }) => {
       </Form.Group>
     );
   } else {
+    // Render message when there are no available time slots
     timeSelect = <p>No available time slots for selected date.</p>;
   }
+
   return (
     <section className="section mb-5">
       <Container data-aos="fade-up">
@@ -230,7 +229,7 @@ const BookingForm = ({ fetchBookings }) => {
           <Col md={8}>
             <Card className="mt-5">
               <Card.Body>
-              <h3 className="text-center" >MAKE A BOOKING</h3>
+                <h3 className="text-center">MAKE A BOOKING</h3>
                 <Form onSubmit={handleSubmit}>
                   <Form.Group controlId="date">
                     <Form.Label style={{ color: '#226c97' }}>DATE:</Form.Label>
