@@ -2,7 +2,10 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { css } from "@emotion/react"; // Step 2: Import necessary components from react-spinners
+import { FadeLoader } from "react-spinners"; // Step 2: Import necessary components from react-spinners
 import "./HeroPage.scss";
+
 const HeroPage = () => {
   const [homePageData, setHomePageData] = useState(null);
 
@@ -33,6 +36,12 @@ const HeroPage = () => {
     return () => {};
   }, []);
 
+  const override = css` // Step 3: Define a CSS override for the spinner
+    display: block;
+    margin: 0 auto;
+    border-color: red; /* Change color if needed */
+  `;
+
   return (
     <section className="hero">
       <div className="hero_container wrapper">
@@ -59,7 +68,10 @@ const HeroPage = () => {
               </a>
             </>
           ) : (
-            <p>Loading...</p>
+            // Step 4: Replace the loading paragraph with the FadeLoader component
+            <div className="spinner">
+              <FadeLoader color={"#34c4a9"} css={override} size={15} />
+            </div>
           )}
         </div>
       </div>

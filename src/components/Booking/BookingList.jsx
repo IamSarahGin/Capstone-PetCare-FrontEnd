@@ -62,7 +62,7 @@ const BookingList = () => {
 
   return (
     <div className='main-content mt-5 '>
-      <h3 style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '20px' }}>BOOKING LIST</h3>
+      <h3 style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '20px' }}>LIST OF REQUEST</h3>
       <table className="table table-striped mb ">
         {/* Table header */}
         <thead>

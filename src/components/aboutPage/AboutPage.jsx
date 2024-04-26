@@ -1,6 +1,6 @@
-// AboutPage.jsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { FadeLoader } from 'react-spinners';
 import './AboutPage.scss';
 
 const AboutPage = () => {
@@ -30,7 +30,7 @@ const AboutPage = () => {
             <div className="about_container wrapper">
                 <div className="about_left" data-aos="fade-right">
                     {loading ? (
-                        <p>Loading...</p>
+                        <FadeLoader color="#34c4a9" loading={loading} />
                     ) : aboutPageData ? (
                         aboutPageData.map(data => (
                             <img key={data.id} src={data.image} alt="about" />
@@ -41,7 +41,7 @@ const AboutPage = () => {
                 </div>
                 <div className="about_right" data-aos="zoom-in-up">
                     {loading ? (
-                        <p>Loading...</p>
+                        <FadeLoader color="#34c4a9" loading={loading} />
                     ) : aboutPageData ? (
                         aboutPageData.map(data => (
                             <div key={data.id}>
