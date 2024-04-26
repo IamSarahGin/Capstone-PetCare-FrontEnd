@@ -88,8 +88,8 @@ textarea:focus {
 }
 
 button.btn-submit {
-  border-radius: 20px;
-  border: 1px solid #00b4cf;
+  border-radius:  0.5 rem;
+  order: 1px solid transparent;
   background-color: #db9b41; // Set default background color
   color: #ffffff;
   font-size: 12px;
@@ -102,8 +102,9 @@ button.btn-submit {
 }
 
 button.btn-submit:hover {
-  border-color: #01a0c6; // Change border color on hover
-  background: #01a0c6; // Change background color on hover
+  border-color: #01a0c6;
+  background: #01a0c6;
+  color:white; 
 }
 
 

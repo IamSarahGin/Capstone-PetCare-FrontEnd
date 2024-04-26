@@ -73,6 +73,18 @@ span{
     }
 }
 
-
+.spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* You can adjust the height as needed */
+  }
+  
+  /* Adjust spinner size if necessary */
+  .react-spinner {
+    width: 50px; /* Adjust size as needed */
+    height: 50px; /* Adjust size as needed */
+  }
+  
 
 }

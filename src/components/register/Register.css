@@ -60,9 +60,9 @@
   }
   
   .register-photo form .btn-primary {
-    background: #b6755f !important;
+    background: #db9b41!important;
     border: none !important;
-    border-radius: 0 !important; /* Remove border radius to match input */
+    border-radius: 0.5 rem !important; /* Remove border radius to match input */
     padding: 11px !important;
     box-shadow: none !important;
     margin-top: 15px !important; /* Adjust margin to match input */
