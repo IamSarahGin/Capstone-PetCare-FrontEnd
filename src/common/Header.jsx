@@ -13,8 +13,17 @@ import Reset from '../components/Reset';
 import BookingForm from '../components/Booking/BookingForm';
 import BookingList from '../components/Booking/BookingList';
 import Footer from '../components/footer/Footer';
+import NotFound from '../components/notfound/NotFound';
 import axios from 'axios';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+const DefaultLayout = ({ children, user, setUser }) => (
+  <>
+    <Nav user={user} setUser={setUser} />
+    {children}
+    <Footer />
+  </>
+);
 
 const Header = () => {
   const [user, setUser] = useState({});
@@ -51,21 +60,23 @@ const Header = () => {
   return (
     <BrowserRouter>
       <div>
-        <Nav user={user} setUser={setUser} />
+       
         <Routes>
-          <Route path='/' element={<Protected path="/"><Home /></Protected>} />
-          <Route path='/about' element={<Protected path="/"><About /></Protected>} />
-          <Route path='/services' element={<Protected path="/"><Services /></Protected>} />
-          <Route path='/contact' element={<Protected path="/"><Contact /></Protected>} />
-          <Route path='/login' element={<Protected path="/"><Login user={user} setUser={setUser} /></Protected>} />
-          <Route path='/register' element={<Protected path="/"><Register user={user} setUser={setUser} /></Protected>} />
+          <Route path='/' element={<DefaultLayout user={user} setUser={setUser}><Protected path="/"><Home /></Protected></DefaultLayout>} />
+          <Route path='/about' element={<DefaultLayout user={user} setUser={setUser}><Protected path="/"><About /></Protected></DefaultLayout>} />
+          <Route path='/services' element={<DefaultLayout user={user} setUser={setUser}><Protected path="/"><Services /></Protected></DefaultLayout>} />
+          <Route path='/contact' element={<DefaultLayout user={user} setUser={setUser}><Protected path="/"><Contact /></Protected></DefaultLayout>} />
+          <Route path='/login' element={<DefaultLayout user={user} setUser={setUser}><Protected path="/"><Login user={user} setUser={setUser} /></Protected></DefaultLayout>} />
+          <Route path='/register' element={<DefaultLayout user={user} setUser={setUser}><Protected path="/"><Register user={user} setUser={setUser} /></Protected></DefaultLayout>} />
           <Route path='/forget' element={<Forget />} />
           <Route path='/reset/:id' element={<Reset />} />
-          <Route path='/profile/*' element={<Protected path="/profile"><Profile user={user} setUser={setUser} /></Protected>} />
-          <Route path='/bookings' element={<Protected><BookingForm fetchBookings={fetchBookings} /></Protected>} />
-          <Route path='/add-booking' element={<Protected><BookingList /></Protected>} />
+          <Route path='/profile/*' element={<DefaultLayout user={user} setUser={setUser}><Protected path="/profile"><Profile user={user} setUser={setUser} /></Protected></DefaultLayout>} />
+          <Route path='/bookings' element={<DefaultLayout user={user} setUser={setUser}><Protected><BookingForm fetchBookings={fetchBookings} /></Protected></DefaultLayout>} />
+          <Route path='/add-booking' element={<DefaultLayout user={user} setUser={setUser}><Protected><BookingList /></Protected></DefaultLayout>} />
+          <Route path='*' element={<NotFound />} />
         </Routes>
-        <Footer/>
+        
+        
       </div>
     </BrowserRouter>
   );

@@ -224,12 +224,12 @@ const BookingForm = ({ fetchBookings }) => {
 
   return (
     <section className="section mb-5">
-      <Container data-aos="fade-up">
-        <Row className="justify-content-center">
-          <Col md={8}>
-            <Card className="mt-5">
-              <Card.Body>
-                <h3 className="text-center">MAKE A BOOKING</h3>
+      <section className="section mb-5">
+      <Row className="justify-content-center">
+        <Col md={8}>
+          <Card className="mt-5">
+            <Card.Body>
+              <h3 className="text-center">MAKE A BOOKING</h3>
                 <Form onSubmit={handleSubmit}>
                   <Form.Group controlId="date">
                     <Form.Label style={{ color: '#226c97' }}>DATE:</Form.Label>
@@ -288,11 +288,11 @@ const BookingForm = ({ fetchBookings }) => {
                     Submit
                   </Button>
                 </Form>
-              </Card.Body>
-            </Card>
-          </Col>
-        </Row>
-      </Container>
+                </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+    </section>
     </section>
   );
 };

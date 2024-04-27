@@ -7,8 +7,8 @@ function Footer() {
   return (
     <footer className="text-white text-center text-lg-start  martop"> 
       <div className="row mt-4">
-        <div className="col-lg-4 col-md-12 mb-4 mb-md-0" style={{ paddingLeft: '30px' }}>
-          <h5 className="text-uppercase mb-4">About company</h5>
+        <div className="col-lg-4 col-md-12 mb-4 mb-md-0" style={{ paddingLeft: '80px' }}>
+          <h5 className="text-uppercase mb-4 mt-4">About company</h5>
           <p style={{ color: 'white' }}>
             We’re on a mission to strengthen the human-animal bond through better pet care, and we started with a new approach: urgent care.
           </p>
@@ -17,8 +17,8 @@ function Footer() {
           </p>
         </div>
 
-        <div className="col-lg-4 col-md-12 mb-4 mb-md-0" style={{ paddingLeft: '100px' }}>
-        <h5 className="text-uppercase mb-4">Contact</h5>
+        <div className="col-lg-4 col-md-12 mb-4 mb-md-0" style={{ paddingLeft: '160px' }}>
+        <h5 className="text-uppercase mb-4 mt-4">Contact</h5>
           <div className="form-outline form-white mb-4"></div>
           <ul className="fa-ul" style={{ marginLeft: '1.65em', color: 'white' }}>
             <li className="mb-3">
@@ -28,7 +28,7 @@ function Footer() {
               <span className="fa-li"><FaHome /></span><span className="ms-2"> 1st Floor, ABC Building, Purok 8, Taguig City</span>
             </li>
             <li className="mb-3">
-              <span className="fa-li"><FaEnvelope /></span><span className="ms-2">petcareest.20224@gmail.com</span>
+              <span className="fa-li"><FaEnvelope /></span><span className="ms-2">petcareest.2024@gmail.com</span>
             </li>
             <li className="mb-3">
               <span className="fa-li"><FaPhone /></span><span className="ms-2">+ 654456456</span>
@@ -40,11 +40,11 @@ function Footer() {
         </div>
 
         <div className="col-lg-4 col-md-12 mb-4 mb-md-0">
-          <h5 className="text-uppercase mb-4">Opening hours</h5>
+          <h5 className="text-uppercase mb-4 mt-4">Opening hours</h5>
           <table className="table text-center text-white">
             <tbody className="font-weight-normal">
               <tr>
-                <td>Mon - Fri:</td>
+                <td>Monday - Sunday:</td>
                 <td>8am - 5pm</td>
               </tr>
             </tbody>

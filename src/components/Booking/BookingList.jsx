@@ -32,6 +32,10 @@ const BookingList = () => {
     }
   };
 
+  // Pagination logic to disable next button if there are no more pages
+  const totalBookings = 15; // Total number of bookings (replace with actual count)
+  const totalPages = Math.ceil(totalBookings / itemsPerPage);
+
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const options = { month: 'short', day: '2-digit', year: 'numeric' };

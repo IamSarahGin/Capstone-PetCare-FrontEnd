@@ -19,7 +19,7 @@ const Nav = (props) => {
   if (isLoggedIn) {
     // Display username, profile link, logout button, and bookings link if the user is logged in
     const username = props.user.name; // Assuming the username is stored in 'name' property
-   
+    
     welcomeMessage = (
       <div className="d-flex align-items-center me-5">
         <span className="text-white">WELCOME <span style={{ color: '#db9b41' }}>{username}</span>
