@@ -38,7 +38,7 @@ const formSubmit = (e) =>{
 let err_message="";
 if(state.message){
   err_message=(
-    <div class="alert alert-danger" role="alert">
+    <div class="alert alert-success" role="alert">
       {state.message}
 </div>
   );
@@ -75,7 +75,7 @@ return (
             <button type="submit" className="btn btn-primary">Reset Password</button>
             </div>   
             <p>Have an account? <Link to="/login">Login here</Link></p>
-            <p>Forgot Password? <Link to="/forget">click here</Link>     </p>    
+             
           </form>
         </div>
     </div>
