@@ -65,54 +65,56 @@ const BookingList = () => {
   };
 
   return (
-    <div className='main-content mt-5 '>
-      <h3 style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '20px' }}>LIST OF REQUEST</h3>
-      <table className="table table-striped mb ">
-        {/* Table header */}
-        <thead>
-          {/* Header row */}
-          <tr>
-            <th>DATE</th>
-            <th>TIME</th>
-            <th>PET NAME</th>
-            <th>BREED</th>
-            <th>AGE</th>
-            <th>COLOR</th>
-            <th>SYMPTOMS</th>
-            <th>STATUS</th>
-          </tr>
-        </thead>
-        {/* Table body */}
-        <tbody>
-          {/* Map through bookings and render each row */}
-          {bookings.map((booking) => (
-            <tr key={booking.id}>
-              <td>{booking.date.toUpperCase()}</td>
-              <td>{booking.time.toUpperCase()}</td>
-              <td>{booking.pet_name.toUpperCase()}</td>
-              <td>{booking.breed.toUpperCase()}</td>
-              <td>{typeof booking.age === 'string' ? booking.age.toUpperCase() : booking.age}</td>
-              <td>{booking.color.toUpperCase()}</td>
-              <td>{booking.symptoms.toUpperCase()}</td>
-              <td style={{ color: getStatusColor(booking.status) }}>{booking.status.toUpperCase()}</td>
+    <div className='container' style={{ width: '3000px' }}>
+      <div className='main-content mt-5'>
+        <h3 style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '20px' }}>LIST OF REQUEST</h3>
+        <table className="table table-striped mb ">
+          {/* Table header */}
+          <thead>
+            {/* Header row */}
+            <tr>
+              <th>DATE</th>
+              <th>TIME</th>
+              <th>PET NAME</th>
+              <th>BREED</th>
+              <th>AGE</th>
+              <th>COLOR</th>
+              <th>SYMPTOMS</th>
+              <th>STATUS</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-      {/* Pagination controls */}
-      <nav aria-label="Page navigation">
-        <ul className="pagination">
-          <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
-            <button className="page-link" onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1}>Previous</button>
-          </li>
-          <li className="page-item disabled">
-            <span className="page-link">{currentPage}</span>
-          </li>
-          <li className="page-item">
-            <button className="page-link" onClick={() => setCurrentPage(currentPage + 1)}>Next</button>
-          </li>
-        </ul>
-      </nav>
+          </thead>
+          {/* Table body */}
+          <tbody>
+            {/* Map through bookings and render each row */}
+            {bookings.map((booking) => (
+              <tr key={booking.id}>
+                <td>{booking.date.toUpperCase()}</td>
+                <td>{booking.time.toUpperCase()}</td>
+                <td>{booking.pet_name.toUpperCase()}</td>
+                <td>{booking.breed.toUpperCase()}</td>
+                <td>{typeof booking.age === 'string' ? booking.age.toUpperCase() : booking.age}</td>
+                <td>{booking.color.toUpperCase()}</td>
+                <td>{booking.symptoms.toUpperCase()}</td>
+                <td style={{ color: getStatusColor(booking.status) }}>{booking.status.toUpperCase()}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        {/* Pagination controls */}
+        <nav aria-label="Page navigation">
+          <ul className="pagination">
+            <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
+              <button className="page-link" onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1}>Previous</button>
+            </li>
+            <li className="page-item disabled">
+              <span className="page-link">{currentPage}</span>
+            </li>
+            <li className="page-item">
+              <button className="page-link" onClick={() => setCurrentPage(currentPage + 1)}>Next</button>
+            </li>
+          </ul>
+        </nav>
+      </div>
     </div>
   );
 };
