@@ -46,7 +46,6 @@ const ServicePage = () => {
 
   return (
     <section className="services" id="pricing">
-      {/* Dynamically display the title from service data */}
       <h2 data-aos="zoom-in-up">{services.length > 0 && services[0].title1}</h2>
       <div className="services_container wrapper">
         {loading ? (

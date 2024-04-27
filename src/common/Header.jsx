@@ -8,7 +8,7 @@ import Contact from '../components/contactPage/ContactPage';
 import Login from '../components/login/Login';
 import Profile from '../components/Profile';
 import Register from '../components/register/Register';
-import Forget from '../components/Forget';
+import Forget from '../components/forgetPassword/Forget';
 import Reset from '../components/Reset';
 import BookingForm from '../components/Booking/BookingForm';
 import BookingList from '../components/Booking/BookingList';

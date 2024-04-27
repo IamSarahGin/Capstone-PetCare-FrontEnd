@@ -1,0 +1,17 @@
+.form-gap {
+    padding-top: 70px;
+}
+.password-text {
+    font-size: 0.7em;
+}
+.input-group .input-group-addon i.fa-envelope {
+    font-size: 50px; 
+} 
+.btn{
+    background-color: #428bca;
+}
+
+.container{
+    width:800px;
+}
+  

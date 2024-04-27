@@ -1,9 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import AOS from "aos";
 import { FadeLoader } from 'react-spinners';
 import './AboutPage.scss';
 
 const AboutPage = () => {
+    useEffect(() => {
+        const handleScroll = () => {
+          AOS.refresh();
+        };
+    
+        AOS.init({ duration: 1000 });
+        window.addEventListener("scroll", handleScroll);
+        return () => {
+          window.removeEventListener("scroll", handleScroll);
+        };
+      }, []);
     const [aboutPageData, setAboutPageData] = useState(null);
     const [loading, setLoading] = useState(true);
 
