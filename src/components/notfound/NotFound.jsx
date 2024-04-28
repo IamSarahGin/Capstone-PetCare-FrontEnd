@@ -1,8 +1,8 @@
 import React from 'react';
-import { useLocation, Link } from 'react-router-dom';
 import './NotFound.css';
+
+
 const NotFound = () => {
-  const location = useLocation()
  const goBack = () => {
      window.history.back();
    };

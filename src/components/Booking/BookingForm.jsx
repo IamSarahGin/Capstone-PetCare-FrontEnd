@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import './BookingForm.css';
-import { Container, Row, Col, Form, Button, Card } from 'react-bootstrap';
+import { Row, Col, Form, Button, Card } from 'react-bootstrap';
 
 const BookingForm = ({ fetchBookings }) => {
   const [formData, setFormData] = useState({
@@ -43,9 +42,9 @@ const BookingForm = ({ fetchBookings }) => {
       console.error('Error fetching service types:', error);
     }
   };
+
   useEffect(() => {
-    fetchPetTypes();
-    
+    fetchPetTypes();   
   }, []);
 
   const fetchPetTypes = async () => {
@@ -56,6 +55,7 @@ const BookingForm = ({ fetchBookings }) => {
       console.error('Error fetching pet types:', error);
     }
   };
+
   const handleServiceChange = (e) => {
     const { value } = e.target;
     setFormData((prevState) => ({
@@ -168,7 +168,7 @@ const BookingForm = ({ fetchBookings }) => {
         pet_id: parseInt(formData.pet_id),
       };
 
-      const bookingResponse = await axios.post('/bookings', bookingData, {
+      await axios.post('/bookings', bookingData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -224,7 +224,6 @@ const BookingForm = ({ fetchBookings }) => {
 
   return (
     <section className="section mb-5">
-      <section className="section mb-5">
       <Row className="justify-content-center">
         <Col md={8}>
           <Card className="mt-5">
@@ -292,7 +291,6 @@ const BookingForm = ({ fetchBookings }) => {
           </Card>
         </Col>
       </Row>
-    </section>
     </section>
   );
 };

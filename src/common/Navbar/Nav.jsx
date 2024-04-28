@@ -14,7 +14,7 @@ const Nav = (props) => {
   const isLoggedIn = localStorage.getItem('token');
 
   // Initialize variables to hold buttons and profile link
-  let buttons, profile, bookingsLink, bookingFormLink, homeLink, aboutUsLink, contactUsLink, welcomeMessage;
+  let buttons,bookingsLink, bookingFormLink, homeLink,  welcomeMessage;
 
   if (isLoggedIn) {
     // Display username, profile link, logout button, and bookings link if the user is logged in
